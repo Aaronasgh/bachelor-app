@@ -6,5 +6,12 @@ export const Light = () => {
   const dirLight = useRef<DirectionalLight>(null!);
   useHelper(dirLight, DirectionalLightHelper, 1, "red");
 
-  return <directionalLight ref={dirLight} color="white" position={[2, 0, 5]} />;
+  return (
+    <directionalLight
+      ref={dirLight}
+      color="white"
+      position={[0, 5, 5]}
+      target-position={[0, 5, 0]}
+    />
+  );
 };

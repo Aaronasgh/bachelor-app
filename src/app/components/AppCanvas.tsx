@@ -11,9 +11,17 @@ export function AppCanvas() {
     >
       <Light />
       <gridHelper args={[30, 30]} />
-      <mesh position={[0, 0, 0]}>
+      <mesh position={[0, 5, 0]}>
         <sphereGeometry />
         <meshPhongMaterial color="red" />
+      </mesh>
+      <mesh position={[-2, 5, 0]}>
+        <sphereGeometry />
+        <meshPhongMaterial color="green" />
+      </mesh>
+      <mesh position={[2, 5, 0]}>
+        <sphereGeometry />
+        <meshPhongMaterial color="blue" />
       </mesh>
       <ambientLight intensity={0.1} />
       <OrbitControls />
