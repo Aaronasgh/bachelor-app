@@ -2,6 +2,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Light } from "./Light";
+import { ColorSpheres } from "./ColorSpheres";
 
 export function AppCanvas() {
   return (
@@ -11,18 +12,7 @@ export function AppCanvas() {
     >
       <Light />
       <gridHelper args={[30, 30]} />
-      <mesh position={[0, 5, 0]}>
-        <sphereGeometry />
-        <meshPhongMaterial color="red" />
-      </mesh>
-      <mesh position={[-2, 5, 0]}>
-        <sphereGeometry />
-        <meshPhongMaterial color="green" />
-      </mesh>
-      <mesh position={[2, 5, 0]}>
-        <sphereGeometry />
-        <meshPhongMaterial color="blue" />
-      </mesh>
+      <ColorSpheres />
       <ambientLight intensity={0.1} />
       <OrbitControls />
     </Canvas>
