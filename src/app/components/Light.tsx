@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { DirectionalLight, DirectionalLightHelper } from "three";
 import { useHelper } from "@react-three/drei";

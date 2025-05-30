@@ -3,8 +3,14 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Light } from "./Light";
 import { ColorSpheres } from "./ColorSpheres";
+import { useEffect } from "react";
+import { setupMidi } from "../utils/setupMidi";
 
 export function AppCanvas() {
+  useEffect(() => {
+    setupMidi();
+  }, []);
+
   return (
     <Canvas
       camera={{ position: [0, 7.5, 7.5] }}
