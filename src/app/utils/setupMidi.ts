@@ -1,6 +1,11 @@
 "use client";
 
-export const setupMidi = () => {
+let sustainPedalHeld = false;
+const sustainedNotes = new Set<number>();
+
+export const setupMidi = (
+  setActiveKeys: React.Dispatch<React.SetStateAction<Set<number>>>
+) => {
   function listInputsAndOutputs(midiAccess: MIDIAccess) {
     for (const entry of midiAccess.inputs) {
       const input = entry[1];
@@ -27,14 +32,38 @@ export const setupMidi = () => {
       return;
     }
 
-    const [status, data1, data2] = event.data;
+    const [status, note, velocity] = event.data;
 
     if (status === 254) {
       // Don't log active sensing messages
       return;
     }
 
-    console.log(`Midi Status: ${status}, ${data1}, ${data2}`);
+    if (status === 179 && note === 64 && velocity === 127) {
+      sustainPedalHeld = true; // Sustain ON
+    }
+
+    if (status === 179 && note === 64 && velocity === 0) {
+      sustainPedalHeld = false; // Sustain OFF
+    }
+
+    setActiveKeys((prevKeys) => {
+      const updatedKeys = new Set(prevKeys);
+
+      if (sustainPedalHeld === true && status === 147 && velocity > 0) {
+        sustainedNotes.add(note); // Sustained Note ON
+      }
+
+      if (status === 147 && velocity > 0) {
+        updatedKeys.add(note); // Note ON
+      } else if (status === 147 && velocity === 0) {
+        updatedKeys.delete(note); // Note OFF
+      }
+      console.log(`Midi Status: ${status}, ${note}, ${velocity}`);
+      console.log("Active keys now:", Array.from(updatedKeys));
+      console.log("sustainPedalHeld: ", sustainPedalHeld);
+      return updatedKeys;
+    });
   }
 
   function startLoggingMIDIInput(midiAccess: MIDIAccess) {

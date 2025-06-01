@@ -1,78 +1,74 @@
 import { colorHexCodes } from "../utils/colorHexCodes";
 
-// interface ReactiveSpheresProps {
-//   color: string;
-//   active: boolean;
-// }
+interface ReactiveSpheresProps {
+  color: string;
+  active: boolean;
+}
 
-// interface ColorSpheresProps {
-//   active: boolean;
-// }
+interface ColorSpheresProps {
+  activeKeys: Set<number>;
+}
 
 type KeyColorPair = {
   key: number;
   color: string;
 };
 
-// const reactiveSpheres = ({ active, color }: ReactiveSpheresProps) => {
-//   return (
-//     <meshPhongMaterial
-//       color={color}
-//       opacity={active ? 0 : 1}
-//       transparent={true}
-//     />
-//   );
-// };
+const reactiveSpheres = ({ color }: ReactiveSpheresProps) => {
+  return <meshPhongMaterial color={color} transparent={true} />;
+};
 
-const yzStartCoordinate = [3, 2];
-// const xyzCoordinates = new Set<number>();
+export const ColorSpheres = (props: ColorSpheresProps) => {
+  const yzStartCoordinate = [3, 2];
 
-// Array from numbers 36 through 96 representing the corresponding MIDI value of a piano key in 5 octaves
-const keyNumbers: number[] = Array.from({ length: 96 - 36 }, (_, i) => i + 1);
+  // Array from numbers 36 through 96 representing the corresponding MIDI value of a piano key in 5 octaves
+  const keyNumbers: number[] = Array.from(
+    { length: 96 - 36 },
+    (_, i) => i + 36
+  );
 
-// Function to get 2D-Array of hexCodes with a unique key signature
-const numberedHexCodes = colorHexCodes.map((hexCodeArray, rowIndex) => {
-  return hexCodeArray.map((hexCode, columnIndex) => {
-    return {
-      key: keyNumbers[rowIndex * 12 + columnIndex], // Correct key assignment
-      color: hexCode,
-    } as KeyColorPair;
+  // Function to get 2D-Array of hexCodes with a unique key signature
+  const numberedHexCodes = colorHexCodes.map((hexCodeArray, rowIndex) => {
+    return hexCodeArray.map((hexCode, columnIndex) => {
+      return {
+        key: keyNumbers[rowIndex * 12 + columnIndex], // There are 12 Elements per row
+        color: hexCode,
+      } as KeyColorPair;
+    });
   });
-});
 
-const orderedMaterials = numberedHexCodes.map((keyColorPairs) => {
-  const spacing = 2;
+  const orderedMaterials = numberedHexCodes.map((keyColorPairs, rowIndex) => {
+    const spacing = 2;
 
-  // 12 Keys in an octave centered around x coordinate 0 with spacing of 2 go from -11 to 11
-  let xStartCoordinate = -11;
+    // 12 Keys in an octave centered around x coordinate 0 with spacing of 2 go from -11 to 11
+    let xCoordinate = -11;
+    const yCoordinate = yzStartCoordinate[0] + spacing * rowIndex;
+    const zCoordinate = yzStartCoordinate[1] - spacing * rowIndex;
 
-  yzStartCoordinate[0] += spacing;
-  yzStartCoordinate[1] -= spacing;
-  return keyColorPairs.map((keyColorPair) => {
-    console.log("keyColorPair: ", keyColorPair);
-    const mesh = (
-      <mesh
-        key={keyColorPair.key}
-        position={[
-          xStartCoordinate,
-          yzStartCoordinate[0],
-          yzStartCoordinate[1],
-        ]}
-      >
-        <sphereGeometry />
-        <meshPhongMaterial color={keyColorPair.color} transparent={false} />
-      </mesh>
-    );
-    xStartCoordinate += spacing;
+    return keyColorPairs.map((keyColorPair) => {
+      const currentX = xCoordinate; // Save current position
+      xCoordinate += spacing; // Move x for next sphere regardless
+      if (!props.activeKeys.has(keyColorPair.key)) {
+        return null; // Don't render this sphere at all if not active
+      }
+      const mesh = (
+        <mesh
+          key={keyColorPair.key}
+          position={[currentX, yCoordinate, zCoordinate]}
+        >
+          <sphereGeometry />
+          {reactiveSpheres({
+            active: props.activeKeys.has(keyColorPair.key),
+            color: keyColorPair.color,
+          })}
+        </mesh>
+      );
 
-    return mesh;
+      return mesh;
+    });
   });
-});
 
-// return <meshPhongMaterial color={hexCode} transparent={true} />;
+  console.log(keyNumbers);
 
-export const ColorSpheres = () => {
-  console.log("Pairs: ", numberedHexCodes);
-  console.log("orderedMaterials: ", orderedMaterials);
-  return <group>{orderedMaterials}</group>;
+  return <group>{orderedMaterials.flat()}</group>;
 };
