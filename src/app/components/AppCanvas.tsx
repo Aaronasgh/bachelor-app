@@ -18,7 +18,7 @@ export function AppCanvas() {
     >
       <Light />
       <gridHelper args={[30, 30]} />
-      <ColorSpheres active={false} />
+      <ColorSpheres />
       <ambientLight intensity={0.1} />
       <OrbitControls />
     </Canvas>
