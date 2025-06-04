@@ -10,7 +10,7 @@ export const Light = () => {
 
   return (
     <directionalLight
-      ref={dirLight}
+      // ref={dirLight}
       color="white"
       position={[0, 5, 5]}
       target-position={[0, 5, 0]}

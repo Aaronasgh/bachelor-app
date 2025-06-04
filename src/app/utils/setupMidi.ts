@@ -26,6 +26,7 @@ export const setupMidi = (
     }
   }
 
+  //Handles MIDI Input Data
   function onMIDIMessage(event: MIDIMessageEvent) {
     if (!event.data) {
       console.log("Received MIDI message with no data");
@@ -34,7 +35,7 @@ export const setupMidi = (
 
     const [status, note, velocity] = event.data;
 
-    if (status === 254) {
+    if (status === 254 || status === 240) {
       // Don't log active sensing messages
       return;
     }
@@ -50,17 +51,32 @@ export const setupMidi = (
     setActiveKeys((prevKeys) => {
       const updatedKeys = new Set(prevKeys);
 
-      if (sustainPedalHeld === true && status === 147 && velocity > 0) {
-        sustainedNotes.add(note); // Sustained Note ON
+      // Handle pedal release
+      if (sustainPedalHeld === false) {
+        // Only remove notes from activeKeys if they were being sustained (not held)
+        for (const note of sustainedNotes) {
+          updatedKeys.delete(note);
+        }
+        sustainedNotes.clear();
       }
 
+      // Handle Note ON
       if (status === 147 && velocity > 0) {
-        updatedKeys.add(note); // Note ON
-      } else if (status === 147 && velocity === 0) {
-        updatedKeys.delete(note); // Note OFF
+        updatedKeys.add(note);
+        sustainedNotes.delete(note); // remove if it was being sustained
+      }
+
+      // Handle Note OFF
+      if (status === 147 && velocity === 0) {
+        if (sustainPedalHeld) {
+          sustainedNotes.add(note); // keep it sustained if pedal is down
+        } else {
+          updatedKeys.delete(note); // otherwise fully release it
+        }
       }
       console.log(`Midi Status: ${status}, ${note}, ${velocity}`);
       console.log("Active keys now:", Array.from(updatedKeys));
+      console.log("Sustained keys now:", Array.from(sustainedNotes));
       console.log("sustainPedalHeld: ", sustainPedalHeld);
       return updatedKeys;
     });
