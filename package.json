@@ -30,10 +30,7 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "resolutions": {
-    "three": "0.176.0"
-  },
-  "scripts": {
-    "preinstall": "npx npm-force-resolutions"
+  "overrides": {
+    "three": "^0.176.0"
   }
 }

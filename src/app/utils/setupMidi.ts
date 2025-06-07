@@ -54,9 +54,9 @@ export const setupMidi = (
       // Handle pedal release
       if (sustainPedalHeld === false) {
         // Only remove notes from activeKeys if they were being sustained (not held)
-        for (const note of sustainedNotes) {
+        sustainedNotes.forEach((note) => {
           updatedKeys.delete(note);
-        }
+        });
         sustainedNotes.clear();
       }
 
