@@ -1,12 +1,11 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { XR, XROrigin, TeleportTarget, createXRStore } from "@react-three/xr";
+import { XR, XROrigin, createXRStore } from "@react-three/xr";
 import { Light } from "./Light";
 import { ColorSpheres } from "./ColorSpheres";
 import { useEffect, useState } from "react";
 import { setupMidi } from "../utils/setupMidi";
-import { Vector3 } from "three";
 
 const store = createXRStore({
   hand: { teleportPointer: true },
@@ -15,7 +14,6 @@ const store = createXRStore({
 
 export function AppCanvas() {
   const [activeKeys, setActiveKeys] = useState<Set<number>>(new Set());
-  const [position, setPosition] = useState(new Vector3());
 
   useEffect(() => {
     setupMidi(setActiveKeys);
