@@ -60,13 +60,13 @@ export const setupMidi = (
         sustainedNotes.clear();
       }
 
-      // Handle Note ON
+      // Handle Note-ON
       if (status === 147 && velocity > 0) {
         updatedKeys.add(note);
         sustainedNotes.delete(note); // remove if it was being sustained
       }
 
-      // Handle Note OFF
+      // Handle Note-OFF
       if (status === 147 && velocity === 0) {
         if (sustainPedalHeld) {
           sustainedNotes.add(note); // keep it sustained if pedal is down

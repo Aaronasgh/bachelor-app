@@ -10,6 +10,7 @@ type KeyColorPair = {
 };
 
 export const ColorSpheres = (props: ColorSpheresProps) => {
+  // Coordinates were chosen to ensure that the visualizations are easily perceivable
   const yzStartCoordinate = [3, 2];
 
   // Array from numbers 36 through 96 representing the corresponding MIDI value of a piano key ( 5 octaves )
