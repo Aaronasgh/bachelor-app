@@ -63,21 +63,17 @@ export const setupMidi = (
       // Handle Note-ON
       if (status === 147 && velocity > 0) {
         updatedKeys.add(note);
-        sustainedNotes.delete(note); // remove if it was being sustained
+        sustainedNotes.delete(note); // remove note if it was being sustained
       }
 
       // Handle Note-OFF
       if (status === 147 && velocity === 0) {
         if (sustainPedalHeld) {
-          sustainedNotes.add(note); // keep it sustained if pedal is down
+          sustainedNotes.add(note); // keep note sustained if pedal is down
         } else {
           updatedKeys.delete(note); // otherwise fully release it
         }
       }
-      console.log(`Midi Status: ${status}, ${note}, ${velocity}`);
-      console.log("Active keys now:", Array.from(updatedKeys));
-      console.log("Sustained keys now:", Array.from(sustainedNotes));
-      console.log("sustainPedalHeld: ", sustainPedalHeld);
       return updatedKeys;
     });
   }

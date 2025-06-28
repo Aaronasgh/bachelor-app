@@ -13,13 +13,13 @@ export const ColorSpheres = (props: ColorSpheresProps) => {
   // Coordinates were chosen to ensure that the visualizations are easily perceivable
   const yzStartCoordinate = [3, 2];
 
-  // Array from numbers 36 through 96 representing the corresponding MIDI value of a piano key ( 5 octaves )
+  // Array from numbers 36 through 95 representing the corresponding MIDI value of a piano key ( 5 octaves )
   const keyNumbers: number[] = Array.from(
     { length: 96 - 36 },
     (_, i) => i + 36
   );
 
-  // Function to get 2D-Array of hexCodes with a unique key signature
+  // Function to get a 2D-Array of hexCodes, each with a unique key signature
   const numberedHexCodes = colorHexCodes.map((hexCodeArray, rowIndex) => {
     return hexCodeArray.map((hexCode, columnIndex) => {
       return {

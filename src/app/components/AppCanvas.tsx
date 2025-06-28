@@ -54,13 +54,6 @@ export function AppCanvas() {
             <OrbitControls />
           </XROrigin>
           <ColorSpheres activeKeys={activeKeys} />
-
-          {/* <TeleportTarget onTeleport={setPosition}>
-            <mesh scale={[10, 1, 10]} position={[0, -0.5, 7.5]}>
-              <boxGeometry />
-              <meshBasicMaterial color="green" />
-            </mesh>
-          </TeleportTarget> */}
         </XR>
       </Canvas>
     </>
