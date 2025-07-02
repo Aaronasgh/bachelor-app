@@ -9,7 +9,7 @@ Die Farbgebung ist derzeit auf die Tonart C-Dur beschränkt.
 
 Der Prototyp wurde im Rahmen der Bachelorarbeit **„Webbasierte Musikvisualisierung in VR - Möglichkeiten und Grenzen“** im Studiengang Medieninformatik an der TH Köln entwickelt.
 
-Ziel der Arbeit war es, technische Möglichkeiten und Grenzen bei der Umsetzung einer webbasierten Lösung zur Echtzeitvisualisierung von Musik in VR zu untersuchen. 
+Ziel der Arbeit war es, technische Möglichkeiten und Grenzen bei der Umsetzung einer webbasierten Lösung zur Echtzeitvisualisierung von Musik in VR zu untersuchen.
 
 ## Installation & Ausführung
 
@@ -34,6 +34,7 @@ Zum Ausführen der Anwendung in einer Entwicklerumgebung führen Sie folgenden B
 ```bash
 npm run dev
 ```
+
 Die Anwendung ist anschließend unter http://localhost:3000 im Browser erreichbar.
 
 Für die Nutzung des Oculus Quest Headsets muss die Meta Quest Link App auf dem Rechner installiert und das Headset verknüpft werden. Die Verknüpfung erfolgt über die Meta Horizon Mobile App.
@@ -70,8 +71,11 @@ Zum Aktivieren der VR-Ansicht ist der „Enter VR“-Button zu betätigen.
 
 ## Lizenz
 
-Alle Rechte vorbehalten.  
-Der Quellcode darf ausschließlich für akademische Zwecke genutzt und verändert werden. Jegliche kommerzielle Nutzung, Vervielfältigung oder Weitergabe ist ohne ausdrückliche Genehmigung untersagt.
+Alle Rechte vorbehalten.
+
+Der Quellcode darf ausschließlich für akademische Zwecke genutzt und verändert werden.
+
+Jegliche kommerzielle Nutzung, Vervielfältigung oder Weitergabe ist ohne ausdrückliche Genehmigung untersagt.
 
 ## Kontakt
 
