@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webbasierte Musikvisualisierung in VR
 
-## Getting Started
+## Kurzbeschreibung
 
-First, run the development server:
+Dieses Projekt ist ein interaktiver Prototyp zur Echtzeitvisualisierung von Musik in Virtual Reality. Über ein MIDI-Keyboard gespielte Noten werden als farbige Kugeln in einer virtuellen 3D-Umgebung dargestellt. Die Farbgebung und räumliche Anordnung der Kugeln basiert auf musiktheoretischen Prinzipien, um etwa harmonische Zusammenhänge oder Tonhöhe anschaulich darzustellen.
+Derzeit ist die Farbgebung auf die Tonart C-Dur beschränkt.
+
+## Kontext der Arbeit
+
+Der Prototyp wurde im Rahmen der Bachelorarbeit **„Webbasierte Musikvisualisierung in VR - Möglichkeiten und Grenzen“** im Studiengang Medieninformatik an der TH Köln entwickelt.
+
+Ziel der Arbeit war es, technische Möglichkeiten und Grenzen bei der Umsetzung einer webbasierten Lösung zur Echtzeitvisualisierung von Musik in VR zu untersuchen. 
+
+## Installation & Ausführung
+
+### Voraussetzungen
+
+- Ein MIDI-Gerät, z. B. ein MIDI-fähiges Keyboard
+- Ein kompatibler Browser. Während der Entwicklung wurde Google Chrome unter Windows verwendet.
+- Ein VR-Headset (Die Anwendung ist auch ohne VR-Headset nutzbar). Während der Entwicklung wurde die Oculus Quest verwendet.
+
+### Installation
+
+```bash
+git clone https://github.com/Aaronasgh/bachelor-app.git
+cd bachelor-app
+npm install
+```
+
+### Nutzungshinweise
+
+Zum Ausführen der Anwendung in einer Entwicklerumgebung führen Sie folgenden Befehl aus:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Die Anwendung ist anschließend unter http://localhost:3000 im Browser erreichbar.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Für die Nutzung des Oculus Quest Headsets muss die Meta Quest Link App auf dem Rechner installiert und das Headset verknüpft werden. Die Verknüpfung erfolgt über die Mobile App Meta Horizon.
+Anschließend muss auf dem Betriebssystem der Oculus Quest die Link App geöffnet werden, über die der Browser gestartet wird, um die Anwendung in VR nutzen zu können.
+Zum Aktivieren der VR-Ansicht ist der „Enter VR“-Button zu betätigen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Benutzerdokumentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Architektur & Code-Dokumentation
 
-To learn more about Next.js, take a look at the following resources:
+- Das Projekt basiert auf **React Three Fiber** für die 3D-Darstellung.
+- Die MIDI-Eingaben werden über die **Web MIDI API** erfasst.
+- Die VR-Funktionalität wird über die **React Tree XR** realisiert.
+- Der Quellcode ist modular strukturiert, mit klar getrennten Komponenten für MIDI-Verarbeitung, Visualisierung und XR-Interaktion.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Architectural Decision Records
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lizenz
 
-## Deploy on Vercel
+## Kontakt
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bei Fragen oder Anmerkungen kontaktieren Sie bitte:  
+**Aaron Asgharzadeh**  
+E-Mail: aaron.asgharzadeh@gmail.com
