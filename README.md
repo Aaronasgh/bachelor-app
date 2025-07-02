@@ -39,7 +39,7 @@ Die Anwendung ist anschließend unter http://localhost:3000 im Browser erreichba
 
 Für die Nutzung des Oculus Quest Headsets muss die Meta Quest Link App auf dem Rechner installiert und das Headset verknüpft werden. Die Verknüpfung erfolgt über die Meta Horizon Mobile App.
 Anschließend muss auf dem Betriebssystem der Oculus Quest die Link App geöffnet werden, über die der Browser gestartet wird, um die Anwendung in VR nutzen zu können.
-Zum Aktivieren der VR-Ansicht ist der „Enter VR“-Button zu betätigen.
+Zum Aktivieren der VR-Ansicht ist der „Enter VR“-Button oben links zu betätigen.
 
 ## Benutzerdokumentation
 
