@@ -38,7 +38,6 @@ export function AppCanvas() {
         }}
       >
         <button onClick={() => store.enterVR()}>Enter VR</button>
-        <button onClick={() => store.enterAR()}>Enter AR</button>
       </div>
 
       <Canvas
