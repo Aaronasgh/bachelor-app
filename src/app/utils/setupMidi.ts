@@ -3,8 +3,10 @@
 let sustainPedalHeld = false;
 const sustainedNotes = new Set<number>();
 
+type ActiveNotesWithVelocity = Map<number, number>; // Numbers correspond to: <note, velocity>
+
 export const setupMidi = (
-  setActiveKeys: React.Dispatch<React.SetStateAction<Set<number>>>
+  setActiveKeys: React.Dispatch<React.SetStateAction<ActiveNotesWithVelocity>>
 ) => {
   function listInputsAndOutputs(midiAccess: MIDIAccess) {
     for (const entry of midiAccess.inputs) {
@@ -49,31 +51,32 @@ export const setupMidi = (
     }
 
     setActiveKeys((prevKeys) => {
-      const updatedKeys = new Set(prevKeys);
+      const updatedKeys = new Map(prevKeys);
 
-      // Handle pedal release
-      if (sustainPedalHeld === false) {
-        // Only remove notes from activeKeys if they were being sustained (not held)
+      // Pedal release: remove sustained notes
+      if (!sustainPedalHeld) {
         sustainedNotes.forEach((note) => {
           updatedKeys.delete(note);
         });
         sustainedNotes.clear();
       }
 
-      // Handle Note-ON
+      // Note ON
       if (status === 147 && velocity > 0) {
-        updatedKeys.add(note);
-        sustainedNotes.delete(note); // remove note if it was being sustained
+        updatedKeys.set(note, velocity); // Store velocity per note
+        sustainedNotes.delete(note);
+        console.log(event.data);
       }
 
-      // Handle Note-OFF
+      // Note OFF
       if (status === 147 && velocity === 0) {
         if (sustainPedalHeld) {
-          sustainedNotes.add(note); // keep note sustained if pedal is down
+          sustainedNotes.add(note);
         } else {
-          updatedKeys.delete(note); // otherwise fully release it
+          updatedKeys.delete(note);
         }
       }
+
       return updatedKeys;
     });
   }

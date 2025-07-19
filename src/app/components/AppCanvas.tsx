@@ -8,20 +8,24 @@ import { useEffect, useState } from "react";
 import { setupMidi } from "../utils/setupMidi";
 import { Vector3 } from "three";
 
+type ActiveNotesWithVelocity = Map<number, number>; // note -> velocity
+
 const store = createXRStore({
   hand: { teleportPointer: true },
   controller: { teleportPointer: true },
 });
 
 export function AppCanvas() {
-  const [activeKeys, setActiveKeys] = useState<Set<number>>(new Set());
+  const [activeKeys, setActiveKeys] = useState<ActiveNotesWithVelocity>(
+    new Map()
+  );
 
   useEffect(() => {
     setupMidi(setActiveKeys);
   }, []);
 
   // Coordinates were chosen to ensure that the visualizations are easily perceivable
-  const cameraPosition = new Vector3(0, 7.5, 12);
+  const cameraPosition = new Vector3(0, 5, 15);
   const XROriginPosition = new Vector3(0, 3, 20);
 
   return (
@@ -48,7 +52,6 @@ export function AppCanvas() {
           <ambientLight intensity={0.1} />
           <Light />
           <gridHelper args={[30, 30]} />
-
           <XROrigin position={XROriginPosition}>
             <OrbitControls />
           </XROrigin>
