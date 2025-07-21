@@ -19,6 +19,11 @@ Ziel der Arbeit war es, technische Möglichkeiten und Grenzen bei der Umsetzung 
 - Ein kompatibler Browser. Während der Entwicklung wurde Google Chrome unter Windows verwendet.
 - Ein VR-Headset (optional). Während der Entwicklung wurde die Oculus Quest verwendet.
 
+### Online Version
+
+Eine lauffähige Version des Prototyps finden Sie unter: https://musikvisualisierung.onrender.com
+
+Für eine lokale Installation und Ausführung folgen Sie den nächsten Schritten:
 ### Installation
 
 ```bash
